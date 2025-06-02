@@ -22,7 +22,6 @@ BEGIN
         Name NVARCHAR(100) NOT NULL,
         Email NVARCHAR(100) NOT NULL UNIQUE,
         Password NVARCHAR(256) NOT NULL,
-        PhoneNumber NVARCHAR(20) NOT NULL,
         RegistrationDate DATETIME NOT NULL
     );
 END

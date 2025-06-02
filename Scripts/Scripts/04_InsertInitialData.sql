@@ -43,7 +43,7 @@ BEGIN
 END
 GO
 
--- Crear índices para mejorar el rendimiento
+-- Indices para mejorar el rendimiento
 IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = 'IX_Students_Email' AND object_id = OBJECT_ID('Students'))
 BEGIN
     CREATE UNIQUE INDEX IX_Students_Email ON Students(Email);
