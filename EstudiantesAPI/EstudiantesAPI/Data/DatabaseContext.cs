@@ -10,7 +10,7 @@ public class DatabaseContext
     public DatabaseContext(IConfiguration configuration)
     {
         _connectionString = configuration.GetConnectionString("Connection") ?? 
-            throw new ArgumentNullException("Connection string is not configured");
+            throw new ArgumentNullException("La cadena de conexión no esta configurada");
     }
 
     public IDbConnection CreateConnection()

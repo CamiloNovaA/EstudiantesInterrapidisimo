@@ -34,14 +34,13 @@ public class StudentRepository : IStudentRepository
         await connection!.OpenAsync();
 
         using var command = new SqlCommand(
-            @"INSERT INTO Students (Name, Email, Password, PhoneNumber, RegistrationDate) 
-              VALUES (@Name, @Email, @Password, @PhoneNumber, @RegistrationDate);
+            @"INSERT INTO Students (Name, Email, Password, RegistrationDate) 
+              VALUES (@Name, @Email, @Password, @RegistrationDate);
               SELECT CAST(SCOPE_IDENTITY() as int)", connection);
 
         command.Parameters.AddWithValue("@Name", student.Name);
         command.Parameters.AddWithValue("@Email", student.Email);
         command.Parameters.AddWithValue("@Password", student.Password);
-        command.Parameters.AddWithValue("@PhoneNumber", student.PhoneNumber);
         command.Parameters.AddWithValue("@RegistrationDate", student.RegistrationDate);
 
         return (int)await command.ExecuteScalarAsync();
@@ -62,7 +61,6 @@ public class StudentRepository : IStudentRepository
         command.Parameters.AddWithValue("@Id", student.Id);
         command.Parameters.AddWithValue("@Name", student.Name);
         command.Parameters.AddWithValue("@Email", student.Email);
-        command.Parameters.AddWithValue("@PhoneNumber", student.PhoneNumber);
 
         var rowsAffected = await command.ExecuteNonQueryAsync();
         return rowsAffected > 0;

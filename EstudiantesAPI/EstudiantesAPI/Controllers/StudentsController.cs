@@ -17,6 +17,9 @@ public class StudentsController : ControllerBase
         _studentRepository = studentRepository;
     }
 
+    /// <summary>
+    /// Obtener todos los estudiantes
+    /// </summary>
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Student>>> GetAll()
     {
@@ -24,6 +27,10 @@ public class StudentsController : ControllerBase
         return Ok(students);
     }
 
+    /// <summary>
+    /// Obtener estudiante por ID
+    /// </summary>
+    /// <param name="id">Id estudiante</param>
     [HttpGet("{id}")]
     public async Task<ActionResult<Student>> GetById(int id)
     {
@@ -33,37 +40,46 @@ public class StudentsController : ControllerBase
         return Ok(student);
     }
 
-    [HttpPost]
-    public async Task<ActionResult<int>> Create(Student student)
-    {
-        student.RegistrationDate = DateTime.UtcNow;
-        var id = await _studentRepository.CreateAsync(student);
-        return CreatedAtAction(nameof(GetById), new { id }, id);
-    }
-
+    /// <summary>
+    /// Actualiza un estudiante
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="student"></param>
+    /// <returns></returns>
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, Student student)
     {
         if (id != student.Id)
-            return BadRequest();
+            return BadRequest("No puede editar un estudiante que no sea el suyo");
 
         var success = await _studentRepository.UpdateAsync(student);
         if (!success)
-            return NotFound();
+            return NotFound("Fallo la actualización de datos");
 
-        return NoContent();
+        return Ok("Se actualizo con exito");
     }
 
+    /// <summary>
+    /// Elimina un estudiante si se requiere
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
         var success = await _studentRepository.DeleteAsync(id);
         if (!success)
-            return NotFound();
+            return Ok("Se elimino al estudiante");
 
-        return NoContent();
+        return BadRequest("No se logro eliminar al estudiante");
     }
 
+    /// <summary>
+    /// Obtiene los compañeros de clase de un estudiante
+    /// </summary>
+    /// <param name="studentId">Id estudiante</param>
+    /// <param name="subjectId">Id materia</param>
+    /// <returns></returns>
     [HttpGet("{studentId}/classmates/{subjectId}")]
     public async Task<ActionResult<IEnumerable<Student>>> GetClassmates(int studentId, int subjectId)
     {
@@ -71,6 +87,12 @@ public class StudentsController : ControllerBase
         return Ok(classmates);
     }
 
+    /// <summary>
+    /// Inscribirse en una materia y sus validaciones
+    /// </summary>
+    /// <param name="studentId">id estudiante</param>
+    /// <param name="subjectId">id materia</param>
+    /// <returns></returns>
     [HttpPost("{studentId}/subjects/{subjectId}")]
     public async Task<IActionResult> EnrollInSubject(int studentId, int subjectId)
     {
@@ -88,16 +110,22 @@ public class StudentsController : ControllerBase
         if (!success)
             return BadRequest("No se pudo inscribir al estudiante en la materia.");
 
-        return Ok();
+        return Ok("Se registro con éxito en la materia.");
     }
 
+    /// <summary>
+    /// Desinscribirse en una materia y sus validaciones
+    /// </summary>
+    /// <param name="studentId">id estudiante</param>
+    /// <param name="subjectId">id materia</param>
+    /// <returns></returns>
     [HttpDelete("{studentId}/subjects/{subjectId}")]
     public async Task<IActionResult> UnenrollFromSubject(int studentId, int subjectId)
     {
         var success = await _studentRepository.UnenrollFromSubjectAsync(studentId, subjectId);
         if (!success)
-            return NotFound();
+            return BadRequest("No se pudo retirar de la materia o quizá ya no este registrado, por favor nuevamente.");
 
-        return NoContent();
+        return Ok("Se ha elimina su asistencia a la materia con exito");
     }
 } 

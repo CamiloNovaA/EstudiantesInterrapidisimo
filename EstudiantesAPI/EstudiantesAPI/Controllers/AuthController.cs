@@ -30,14 +30,12 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<ActionResult<AuthResponse>> Register([FromBody] Student student)
     {
-        // Hash the password before saving
         student.Password = _authService.HashPassword(student.Password);
         student.RegistrationDate = DateTime.UtcNow;
 
         var id = await _studentRepository.CreateAsync(student);
         student.Id = id;
 
-        // Generate token
         var token = _authService.GenerateJwtToken(student);
         var response = new AuthResponse
         {
