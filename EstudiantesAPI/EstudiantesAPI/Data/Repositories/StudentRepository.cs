@@ -1,6 +1,8 @@
 using Dapper;
 using EstudiantesAPI.Data.Interfaces;
 using EstudiantesAPI.Models;
+using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace EstudiantesAPI.Data.Repositories;
 
@@ -28,29 +30,62 @@ public class StudentRepository : IStudentRepository
 
     public async Task<int> CreateAsync(Student student)
     {
-        using var connection = _context.CreateConnection();
-        var sql = @"INSERT INTO Students (Name, Email, PhoneNumber, RegistrationDate) 
-                    VALUES (@Name, @Email, @PhoneNumber, @RegistrationDate);
-                    SELECT CAST(SCOPE_IDENTITY() as int)";
-        return await connection.QuerySingleAsync<int>(sql, student);
+        using var connection = _context.CreateConnection() as SqlConnection;
+        await connection!.OpenAsync();
+
+        using var command = new SqlCommand(
+            @"INSERT INTO Students (Name, Email, Password, PhoneNumber, RegistrationDate) 
+              VALUES (@Name, @Email, @Password, @PhoneNumber, @RegistrationDate);
+              SELECT CAST(SCOPE_IDENTITY() as int)", connection);
+
+        command.Parameters.AddWithValue("@Name", student.Name);
+        command.Parameters.AddWithValue("@Email", student.Email);
+        command.Parameters.AddWithValue("@Password", student.Password);
+        command.Parameters.AddWithValue("@PhoneNumber", student.PhoneNumber);
+        command.Parameters.AddWithValue("@RegistrationDate", student.RegistrationDate);
+
+        return (int)await command.ExecuteScalarAsync();
     }
 
     public async Task<bool> UpdateAsync(Student student)
     {
-        using var connection = _context.CreateConnection();
-        var sql = @"UPDATE Students 
-                    SET Name = @Name, Email = @Email, PhoneNumber = @PhoneNumber 
-                    WHERE Id = @Id";
-        var affected = await connection.ExecuteAsync(sql, student);
-        return affected > 0;
+        using var connection = _context.CreateConnection() as SqlConnection;
+        await connection!.OpenAsync();
+
+        using var command = new SqlCommand(
+            @"UPDATE Students 
+              SET Name = @Name, 
+                  Email = @Email, 
+                  PhoneNumber = @PhoneNumber 
+              WHERE Id = @Id", connection);
+
+        command.Parameters.AddWithValue("@Id", student.Id);
+        command.Parameters.AddWithValue("@Name", student.Name);
+        command.Parameters.AddWithValue("@Email", student.Email);
+        command.Parameters.AddWithValue("@PhoneNumber", student.PhoneNumber);
+
+        var rowsAffected = await command.ExecuteNonQueryAsync();
+        return rowsAffected > 0;
     }
 
     public async Task<bool> DeleteAsync(int id)
     {
-        using var connection = _context.CreateConnection();
-        var affected = await connection.ExecuteAsync(
-            "DELETE FROM Students WHERE Id = @Id", new { Id = id });
-        return affected > 0;
+        using var connection = _context.CreateConnection() as SqlConnection;
+        await connection!.OpenAsync();
+
+        // Primero eliminamos las relaciones en StudentSubjects
+        using var deleteSubjectsCommand = new SqlCommand(
+            "DELETE FROM StudentSubjects WHERE StudentId = @Id", connection);
+        deleteSubjectsCommand.Parameters.AddWithValue("@Id", id);
+        await deleteSubjectsCommand.ExecuteNonQueryAsync();
+
+        // Luego eliminamos el estudiante
+        using var deleteStudentCommand = new SqlCommand(
+            "DELETE FROM Students WHERE Id = @Id", connection);
+        deleteStudentCommand.Parameters.AddWithValue("@Id", id);
+
+        var rowsAffected = await deleteStudentCommand.ExecuteNonQueryAsync();
+        return rowsAffected > 0;
     }
 
     public async Task<IEnumerable<Student>> GetClassmatesBySubjectAsync(int subjectId, int studentId)
@@ -79,5 +114,51 @@ public class StudentRepository : IStudentRepository
         var count = await connection.QuerySingleAsync<int>(sql, 
             new { StudentId = studentId, TeacherId = teacherId });
         return count > 0;
+    }
+
+    public async Task<bool> EnrollInSubjectAsync(int studentId, int subjectId)
+    {
+        using var connection = _context.CreateConnection() as SqlConnection;
+        await connection!.OpenAsync();
+
+        // Verificar si ya está inscrito
+        using var checkCommand = new SqlCommand(
+            "SELECT COUNT(*) FROM StudentSubjects WHERE StudentId = @StudentId AND SubjectId = @SubjectId",
+            connection);
+        checkCommand.Parameters.AddWithValue("@StudentId", studentId);
+        checkCommand.Parameters.AddWithValue("@SubjectId", subjectId);
+
+        var count = (int)await checkCommand.ExecuteScalarAsync();
+        if (count > 0)
+            return false;
+
+        // Inscribir al estudiante
+        using var enrollCommand = new SqlCommand(
+            @"INSERT INTO StudentSubjects (StudentId, SubjectId, EnrollmentDate) 
+              VALUES (@StudentId, @SubjectId, @EnrollmentDate)",
+            connection);
+
+        enrollCommand.Parameters.AddWithValue("@StudentId", studentId);
+        enrollCommand.Parameters.AddWithValue("@SubjectId", subjectId);
+        enrollCommand.Parameters.AddWithValue("@EnrollmentDate", DateTime.UtcNow);
+
+        var rowsAffected = await enrollCommand.ExecuteNonQueryAsync();
+        return rowsAffected > 0;
+    }
+
+    public async Task<bool> UnenrollFromSubjectAsync(int studentId, int subjectId)
+    {
+        using var connection = _context.CreateConnection() as SqlConnection;
+        await connection!.OpenAsync();
+
+        using var command = new SqlCommand(
+            "DELETE FROM StudentSubjects WHERE StudentId = @StudentId AND SubjectId = @SubjectId",
+            connection);
+
+        command.Parameters.AddWithValue("@StudentId", studentId);
+        command.Parameters.AddWithValue("@SubjectId", subjectId);
+
+        var rowsAffected = await command.ExecuteNonQueryAsync();
+        return rowsAffected > 0;
     }
 } 

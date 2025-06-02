@@ -70,4 +70,34 @@ public class StudentsController : ControllerBase
         var classmates = await _studentRepository.GetClassmatesBySubjectAsync(subjectId, studentId);
         return Ok(classmates);
     }
+
+    [HttpPost("{studentId}/subjects/{subjectId}")]
+    public async Task<IActionResult> EnrollInSubject(int studentId, int subjectId)
+    {
+        // Verificar si el estudiante ya tiene 3 materias
+        var currentSubjects = await _studentRepository.GetEnrolledSubjectsCountAsync(studentId);
+        if (currentSubjects >= 3)
+            return BadRequest("El estudiante ya está inscrito en el máximo de materias permitidas (3).");
+
+        // Obtener el profesor de la materia y verificar si ya tiene una materia con él
+        var hasClassWithTeacher = await _studentRepository.HasClassWithTeacherAsync(studentId, subjectId);
+        if (hasClassWithTeacher)
+            return BadRequest("El estudiante ya tiene una materia con este profesor.");
+
+        var success = await _studentRepository.EnrollInSubjectAsync(studentId, subjectId);
+        if (!success)
+            return BadRequest("No se pudo inscribir al estudiante en la materia.");
+
+        return Ok();
+    }
+
+    [HttpDelete("{studentId}/subjects/{subjectId}")]
+    public async Task<IActionResult> UnenrollFromSubject(int studentId, int subjectId)
+    {
+        var success = await _studentRepository.UnenrollFromSubjectAsync(studentId, subjectId);
+        if (!success)
+            return NotFound();
+
+        return NoContent();
+    }
 } 
