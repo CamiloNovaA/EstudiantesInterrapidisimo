@@ -8,7 +8,7 @@ import { LoginRequest, RegisterRequest, AuthResponse } from '../interfaces/auth.
     providedIn: 'root'
 })
 export class AuthService {
-    private apiUrl = 'http://estudiantesinter.somee.com/api';
+    private apiUrl = 'https://localhost:7241/api';
     private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.hasToken());
     public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 
@@ -20,7 +20,7 @@ export class AuthService {
                 tap(response => {
                     localStorage.setItem('token', response.token);
                     localStorage.setItem('email', JSON.stringify(response.email));
-                    localStorage.setItem('idUser', JSON.stringify(response.id));
+                    localStorage.setItem('idUser', JSON.stringify(response.idUser));
                     this.isAuthenticatedSubject.next(true);
                 })
             );
@@ -50,7 +50,7 @@ export class AuthService {
     }
 
     getCurrentId() {
-        const userStr = localStorage.getItem('email');
+        const userStr = localStorage.getItem('idUser');
         return userStr ? parseInt(userStr) : 0;
     }
 } 

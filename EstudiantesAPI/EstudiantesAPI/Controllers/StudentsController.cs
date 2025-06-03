@@ -27,6 +27,20 @@ public class StudentsController : ControllerBase
         return Ok(students);
     }
 
+    [HttpGet("SubjectsAvailable/{id}")]
+    public async Task<ActionResult<IEnumerable<Subject>>> GetAllSubjectsAvaliables(int id)
+    {
+        var subjects = await _studentRepository.GetAllSubjectsAvaliables(id);
+        return Ok(subjects);
+    }
+
+    [HttpGet("MySubjects/{id}")]
+    public async Task<ActionResult<IEnumerable<Subject>>> GetMySubjects(int id)
+    {
+        var subjects = await _studentRepository.GetMySubjects(id);
+        return Ok(subjects);
+    }
+
     /// <summary>
     /// Obtener estudiante por ID
     /// </summary>
@@ -93,24 +107,37 @@ public class StudentsController : ControllerBase
     /// <param name="studentId">id estudiante</param>
     /// <param name="subjectId">id materia</param>
     /// <returns></returns>
-    [HttpPost("{studentId}/subjects/{subjectId}")]
-    public async Task<IActionResult> EnrollInSubject(int studentId, int subjectId)
+    [HttpPost]
+    [Route("EnrollInSubject")]
+    public async Task<IActionResult> EnrollInSubject(RegistrarMateria registrarMateria)
     {
         // Verificar si el estudiante ya tiene 3 materias
-        var currentSubjects = await _studentRepository.GetEnrolledSubjectsCountAsync(studentId);
+        var currentSubjects = await _studentRepository.GetEnrolledSubjectsCountAsync(registrarMateria.IdStudent);
         if (currentSubjects >= 3)
-            return BadRequest("El estudiante ya está inscrito en el máximo de materias permitidas (3).");
+            return Conflict(new GeneralResponse
+            {
+                mensaje = "El estudiante ya está inscrito en el máximo de materias permitidas (3)."
+            });
 
         // Obtener el profesor de la materia y verificar si ya tiene una materia con él
-        var hasClassWithTeacher = await _studentRepository.HasClassWithTeacherAsync(studentId, subjectId);
+        var hasClassWithTeacher = await _studentRepository.HasClassWithTeacherAsync(registrarMateria.IdStudent, registrarMateria.IdSubject);
         if (hasClassWithTeacher)
-            return BadRequest("El estudiante ya tiene una materia con este profesor.");
+            return Conflict(new GeneralResponse
+            {
+                mensaje = "El estudiante ya tiene una materia con este profesor."
+            });
 
-        var success = await _studentRepository.EnrollInSubjectAsync(studentId, subjectId);
+        var success = await _studentRepository.EnrollInSubjectAsync(registrarMateria.IdStudent, registrarMateria.IdSubject);
         if (!success)
-            return BadRequest("No se pudo inscribir al estudiante en la materia.");
+            return Conflict(new GeneralResponse
+            {
+                mensaje = "No se pudo inscribir al estudiante en la materia."
+            });
 
-        return Ok("Se registro con éxito en la materia.");
+        return Ok(new GeneralResponse
+        {
+            mensaje = "Se registro con éxito en la materia."
+        });
     }
 
     /// <summary>
@@ -124,8 +151,14 @@ public class StudentsController : ControllerBase
     {
         var success = await _studentRepository.UnenrollFromSubjectAsync(studentId, subjectId);
         if (!success)
-            return BadRequest("No se pudo retirar de la materia o quizá ya no este registrado, por favor nuevamente.");
+            return BadRequest(new GeneralResponse
+            {
+                mensaje = "No se pudo retirar de la materia o quizá ya no este registrado, por favor nuevamente."
+            });
 
-        return Ok("Se ha elimina su asistencia a la materia con exito");
+        return Ok(new GeneralResponse
+        {
+            mensaje = "Se ha elimina su asistencia a la materia con exito"
+        });
     }
 } 

@@ -14,4 +14,9 @@ public interface IStudentRepository
     Task<bool> HasClassWithTeacherAsync(int studentId, int teacherId);
     Task<bool> EnrollInSubjectAsync(int studentId, int subjectId);
     Task<bool> UnenrollFromSubjectAsync(int studentId, int subjectId);
-} 
+
+    #region Subject
+    Task<IEnumerable<Subject>> GetAllSubjectsAvaliables(int id);
+    Task<IEnumerable<Subject>> GetMySubjects(int id);
+    #endregion Subject
+}

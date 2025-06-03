@@ -21,6 +21,29 @@ public class StudentRepository : IStudentRepository
         return await connection.QueryAsync<Student>("SELECT * FROM Students");
     }
 
+    public async Task<IEnumerable<Subject>> GetAllSubjectsAvaliables(int id)
+    {
+        using var connection = _context.CreateConnection();
+
+        var sql = @"SELECT S.Id, S.Name, S.Credits, S.TeacherId FROM Subjects S
+                    LEFT JOIN StudentSubjects SS ON S.Id = SS.SubjectId AND SS.StudentId = @Id
+                    WHERE SS.StudentId IS NULL;";
+
+        return await connection.QueryAsync<Subject>(sql, new { Id = id });
+    }
+
+    public async Task<IEnumerable<Subject>> GetMySubjects(int id)
+    {
+        using var connection = _context.CreateConnection();
+
+        var sql = @"SELECT S.Id, S.Name, S.Credits, S.TeacherId FROM Subjects S 
+                    INNER JOIN StudentSubjects SS ON S.Id = SS.SubjectId
+                    INNER JOIN Students ST ON ST.Id = SS.StudentId
+                    WHERE SS.StudentId = @Id";
+
+        return await connection.QueryAsync<Subject>(sql, new { Id = id });
+    }
+
     public async Task<Student?> GetByIdAsync(int id)
     {
         using var connection = _context.CreateConnection();

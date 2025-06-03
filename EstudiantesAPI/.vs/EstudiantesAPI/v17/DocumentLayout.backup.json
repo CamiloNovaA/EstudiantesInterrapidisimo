@@ -3,16 +3,24 @@
   "WorkspaceRootPath": "C:\\Repos\\EstudiantesInterrapidisimo\\EstudiantesAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C5A1E4FC-54B4-4407-857F-B0267471706D}|EstudiantesAPI\\EstudiantesAPI.csproj|c:\\repos\\estudiantesinterrapidisimo\\estudiantesapi\\estudiantesapi\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C5A1E4FC-54B4-4407-857F-B0267471706D}|EstudiantesAPI\\EstudiantesAPI.csproj|solutionrelative:estudiantesapi\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C5A1E4FC-54B4-4407-857F-B0267471706D}|EstudiantesAPI\\EstudiantesAPI.csproj|c:\\repos\\estudiantesinterrapidisimo\\estudiantesapi\\estudiantesapi\\controllers\\studentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C5A1E4FC-54B4-4407-857F-B0267471706D}|EstudiantesAPI\\EstudiantesAPI.csproj|solutionrelative:estudiantesapi\\controllers\\studentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C5A1E4FC-54B4-4407-857F-B0267471706D}|EstudiantesAPI\\EstudiantesAPI.csproj|c:\\repos\\estudiantesinterrapidisimo\\estudiantesapi\\estudiantesapi\\data\\repositories\\studentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C5A1E4FC-54B4-4407-857F-B0267471706D}|EstudiantesAPI\\EstudiantesAPI.csproj|solutionrelative:estudiantesapi\\data\\repositories\\studentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C5A1E4FC-54B4-4407-857F-B0267471706D}|EstudiantesAPI\\EstudiantesAPI.csproj|c:\\repos\\estudiantesinterrapidisimo\\estudiantesapi\\estudiantesapi\\data\\interfaces\\istudentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C5A1E4FC-54B4-4407-857F-B0267471706D}|EstudiantesAPI\\EstudiantesAPI.csproj|solutionrelative:estudiantesapi\\data\\interfaces\\istudentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C5A1E4FC-54B4-4407-857F-B0267471706D}|EstudiantesAPI\\EstudiantesAPI.csproj|c:\\repos\\estudiantesinterrapidisimo\\estudiantesapi\\estudiantesapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C5A1E4FC-54B4-4407-857F-B0267471706D}|EstudiantesAPI\\EstudiantesAPI.csproj|solutionrelative:estudiantesapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C5A1E4FC-54B4-4407-857F-B0267471706D}|EstudiantesAPI\\EstudiantesAPI.csproj|c:\\repos\\estudiantesinterrapidisimo\\estudiantesapi\\estudiantesapi\\controllers\\studentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C5A1E4FC-54B4-4407-857F-B0267471706D}|EstudiantesAPI\\EstudiantesAPI.csproj|solutionrelative:estudiantesapi\\controllers\\studentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C5A1E4FC-54B4-4407-857F-B0267471706D}|EstudiantesAPI\\EstudiantesAPI.csproj|c:\\repos\\estudiantesinterrapidisimo\\estudiantesapi\\estudiantesapi\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C5A1E4FC-54B4-4407-857F-B0267471706D}|EstudiantesAPI\\EstudiantesAPI.csproj|solutionrelative:estudiantesapi\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,40 +35,69 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "StudentsController.cs",
+              "DocumentMoniker": "C:\\Repos\\EstudiantesInterrapidisimo\\EstudiantesAPI\\EstudiantesAPI\\Controllers\\StudentsController.cs",
+              "RelativeDocumentMoniker": "EstudiantesAPI\\Controllers\\StudentsController.cs",
+              "ToolTip": "C:\\Repos\\EstudiantesInterrapidisimo\\EstudiantesAPI\\EstudiantesAPI\\Controllers\\StudentsController.cs",
+              "RelativeToolTip": "EstudiantesAPI\\Controllers\\StudentsController.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAowJIAAABxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-02T22:10:18.531Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IStudentRepository.cs",
+              "DocumentMoniker": "C:\\Repos\\EstudiantesInterrapidisimo\\EstudiantesAPI\\EstudiantesAPI\\Data\\Interfaces\\IStudentRepository.cs",
+              "RelativeDocumentMoniker": "EstudiantesAPI\\Data\\Interfaces\\IStudentRepository.cs",
+              "ToolTip": "C:\\Repos\\EstudiantesInterrapidisimo\\EstudiantesAPI\\EstudiantesAPI\\Data\\Interfaces\\IStudentRepository.cs",
+              "RelativeToolTip": "EstudiantesAPI\\Data\\Interfaces\\IStudentRepository.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAWwBIAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-03T01:09:14.268Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "StudentRepository.cs",
+              "DocumentMoniker": "C:\\Repos\\EstudiantesInterrapidisimo\\EstudiantesAPI\\EstudiantesAPI\\Data\\Repositories\\StudentRepository.cs",
+              "RelativeDocumentMoniker": "EstudiantesAPI\\Data\\Repositories\\StudentRepository.cs",
+              "ToolTip": "C:\\Repos\\EstudiantesInterrapidisimo\\EstudiantesAPI\\EstudiantesAPI\\Data\\Repositories\\StudentRepository.cs",
+              "RelativeToolTip": "EstudiantesAPI\\Data\\Repositories\\StudentRepository.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAACkAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-03T00:56:27.65Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "AuthService.cs",
               "DocumentMoniker": "C:\\Repos\\EstudiantesInterrapidisimo\\EstudiantesAPI\\EstudiantesAPI\\Services\\AuthService.cs",
               "RelativeDocumentMoniker": "EstudiantesAPI\\Services\\AuthService.cs",
-              "ToolTip": "C:\\Repos\\EstudiantesInterrapidisimo\\EstudiantesAPI\\EstudiantesAPI\\Services\\AuthService.cs*",
-              "RelativeToolTip": "EstudiantesAPI\\Services\\AuthService.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAANAAAAAAAAAA==",
+              "ToolTip": "C:\\Repos\\EstudiantesInterrapidisimo\\EstudiantesAPI\\EstudiantesAPI\\Services\\AuthService.cs",
+              "RelativeToolTip": "EstudiantesAPI\\Services\\AuthService.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAB4AAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-03T00:11:32.581Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "AuthController.cs",
               "DocumentMoniker": "C:\\Repos\\EstudiantesInterrapidisimo\\EstudiantesAPI\\EstudiantesAPI\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "EstudiantesAPI\\Controllers\\AuthController.cs",
               "ToolTip": "C:\\Repos\\EstudiantesInterrapidisimo\\EstudiantesAPI\\EstudiantesAPI\\Controllers\\AuthController.cs",
               "RelativeToolTip": "EstudiantesAPI\\Controllers\\AuthController.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABcAAAAtAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABsAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-02T22:10:19.085Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "StudentsController.cs",
-              "DocumentMoniker": "C:\\Repos\\EstudiantesInterrapidisimo\\EstudiantesAPI\\EstudiantesAPI\\Controllers\\StudentsController.cs",
-              "RelativeDocumentMoniker": "EstudiantesAPI\\Controllers\\StudentsController.cs",
-              "ToolTip": "C:\\Repos\\EstudiantesInterrapidisimo\\EstudiantesAPI\\EstudiantesAPI\\Controllers\\StudentsController.cs",
-              "RelativeToolTip": "EstudiantesAPI\\Controllers\\StudentsController.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAH4AAABzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-02T22:10:18.531Z",
               "EditorCaption": ""
             }
           ]

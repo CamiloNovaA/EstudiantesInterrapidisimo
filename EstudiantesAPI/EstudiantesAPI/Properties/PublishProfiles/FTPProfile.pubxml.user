@@ -7,7 +7,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAyFr17tlyyUCdrjpUeJD+DgAAAAACAAAAAAAQZgAAAAEAACAAAABS85SALcWdKWqq2McW6N4+XPcXfFrHakdIUTzSgUzVvQAAAAAOgAAAAAIAACAAAAC+3W7tMm53kzKlazTX17WzO+nsvg0y5gSIUycWLFLXaiAAAAAv9oIfIl6HpOSRsr2zEzZ8z4GFsX1XKbHKZXYJapMTq0AAAABcmkJsbNi8J8eBBPJ9msoVuMFLQl1sE3lgbHdTVsCq4E1S8mgkQ69f3YZl86CGDNE3QM7e3PCy4NMlZWZRRqP8</EncryptedPassword>
     <_PublishTargetUrl>ftp://estudiantesinter.somee.com/www.EstudiantesInter.somee.com</_PublishTargetUrl>
-    <History>True|2025-06-02T22:59:42.0781940Z||;</History>
+    <History>True|2025-06-03T01:42:50.7110807Z||;True|2025-06-02T19:16:17.2984862-05:00||;True|2025-06-02T17:59:42.0781940-05:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -27,16 +27,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>01/02/2024 10:36:54</publishTime>
     </File>
     <File Include="EstudiantesAPI.deps.json">
-      <publishTime>06/02/2025 17:57:50</publishTime>
+      <publishTime>06/02/2025 20:41:49</publishTime>
     </File>
     <File Include="EstudiantesAPI.dll">
-      <publishTime>06/02/2025 17:57:49</publishTime>
+      <publishTime>06/02/2025 20:41:48</publishTime>
     </File>
     <File Include="EstudiantesAPI.exe">
-      <publishTime>06/02/2025 17:57:49</publishTime>
+      <publishTime>06/02/2025 20:41:48</publishTime>
     </File>
     <File Include="EstudiantesAPI.pdb">
-      <publishTime>06/02/2025 17:57:49</publishTime>
+      <publishTime>06/02/2025 20:41:48</publishTime>
     </File>
     <File Include="EstudiantesAPI.runtimeconfig.json">
       <publishTime>06/02/2025 17:57:50</publishTime>
@@ -156,7 +156,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/22/2021 18:49:44</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>06/02/2025 17:57:53</publishTime>
+      <publishTime>06/02/2025 20:41:52</publishTime>
     </File>
   </ItemGroup>
 </Project>

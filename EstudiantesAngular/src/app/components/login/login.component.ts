@@ -1,50 +1,138 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
     selector: 'app-login',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule],
+    imports: [CommonModule, ReactiveFormsModule, RouterLink],
     template: `
-        <div class="min-h-screen bg-gray-100 flex items-center justify-center">
-            <div class="bg-white p-8 rounded-lg shadow-md w-96">
-                <h2 class="text-2xl font-bold mb-6 text-center">Iniciar Sesión</h2>
-                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">Email</label>
-                        <input type="email" formControlName="email" 
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+        <div class="login-container">
+            <div class="login-box">
+                <h2>Iniciar Sesión</h2>
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" formControlName="email">
                         <div *ngIf="loginForm.get('email')?.errors?.['required'] && loginForm.get('email')?.touched"
-                            class="text-red-500 text-sm mt-1">
+                            class="error-message">
                             El email es requerido
                         </div>
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">Contraseña</label>
-                        <input type="password" formControlName="password"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    <div class="form-group">
+                        <label>Contraseña</label>
+                        <input type="password" formControlName="password">
                         <div *ngIf="loginForm.get('password')?.errors?.['required'] && loginForm.get('password')?.touched"
-                            class="text-red-500 text-sm mt-1">
+                            class="error-message">
                             La contraseña es requerida
                         </div>
                     </div>
-                    <button type="submit" [disabled]="loginForm.invalid"
-                        class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    <button type="submit" [disabled]="loginForm.invalid" class="submit-btn">
                         Ingresar
                     </button>
-                    <div class="text-center mt-4">
-                        <a routerLink="/register" class="text-indigo-600 hover:text-indigo-800">
-                            ¿No tienes cuenta? Regístrate
-                        </a>
+                    <div class="register-link">
+                        <a routerLink="/register">¿No tienes cuenta? Regístrate</a>
                     </div>
                 </form>
             </div>
         </div>
     `,
-    styles: []
+    styles: [`
+        .login-container {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+        }
+
+        .login-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #6e8efb;
+            box-shadow: 0 0 0 2px rgba(110, 142, 251, 0.1);
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background: #6e8efb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #5a7af0;
+        }
+
+        .submit-btn:disabled {
+            background: #b4c2fb;
+            cursor: not-allowed;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .register-link a {
+            color: #6e8efb;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .register-link a:hover {
+            color: #5a7af0;
+        }
+    `]
 })
 export class LoginComponent {
     loginForm: FormGroup;
@@ -68,7 +156,6 @@ export class LoginComponent {
                 },
                 error: (error) => {
                     console.error('Error al iniciar sesión:', error);
-                    // Aquí podrías mostrar un mensaje de error al usuario
                 }
             });
         }
