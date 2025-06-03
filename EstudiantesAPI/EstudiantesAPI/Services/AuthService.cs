@@ -32,7 +32,8 @@ public class AuthService : IAuthService
         {
             Token = token,
             Email = student.Email,
-            Expiration = DateTime.UtcNow.AddHours(1)
+            Expiration = DateTime.UtcNow.AddHours(1),
+            IdUser = student.Id,
         };
     }
 

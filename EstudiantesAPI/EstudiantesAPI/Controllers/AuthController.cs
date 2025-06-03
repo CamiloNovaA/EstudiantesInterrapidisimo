@@ -41,7 +41,8 @@ public class AuthController : ControllerBase
         {
             Token = token,
             Email = student.Email,
-            Expiration = DateTime.UtcNow.AddHours(1)
+            Expiration = DateTime.UtcNow.AddHours(1),
+            IdUser = student.Id
         };
 
         return CreatedAtAction(nameof(Login), response);
