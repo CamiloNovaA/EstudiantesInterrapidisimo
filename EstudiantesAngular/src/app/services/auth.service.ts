@@ -8,7 +8,7 @@ import { LoginRequest, RegisterRequest, AuthResponse } from '../interfaces/auth.
     providedIn: 'root'
 })
 export class AuthService {
-    private apiUrl = 'https://localhost:7241/api';
+    private apiUrl = 'http://estudiantesinter.somee.com/api';
     private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.hasToken());
     public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 

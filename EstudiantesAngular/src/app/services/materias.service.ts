@@ -8,7 +8,7 @@ import { Materia, MateriaRegistro } from '../interfaces/materia.interface';
     providedIn: 'root'
 })
 export class MateriasService {
-    private apiUrl = 'https://localhost:7241/api';
+    private apiUrl = 'http://estudiantesinter.somee.com/api';
 
     constructor(private http: HttpClient) {}
 
